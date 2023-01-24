@@ -53,11 +53,11 @@ def Log_in(request):
 #log out section using inbuilt log out features
 def log_out(request):
     logout(request)
-    return HttpResponseRedirect('/dashb/')
+    return HttpResponseRedirect('/login/')
 
 #using profile or dashboard features of the django.contrib.auth
 def dashboard(request):
     if request.user.is_authenticated:
-        pass
+        return render(request,'enroll/dashboard.html',{'name':request.user.username})
     else:
         return HttpResponseRedirect('/login/')
