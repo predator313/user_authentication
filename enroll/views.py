@@ -7,6 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm,SetP
 #we use userchangeform through Editfrom 
 from django.contrib.auth import authenticate,login,logout,update_session_auth_hash
 from django.http import HttpResponseRedirect
+from django.contrib.auth.models import User,Group
 
 # Create your views here.
 #usig user creation forms we get three default filed
@@ -19,7 +20,9 @@ def Sign_Up(request):
     if(request.method=='POST'):
         fm=Sign_Upform(request.POST)
         if(fm.is_valid()):
-            fm.save()
+            user=fm.save()
+            group=Group.objects.get(name='Editor')
+            user.groups.add(group)
             messages.success(request,'hey your account is created successfully')
            
     else:
