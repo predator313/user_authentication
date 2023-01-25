@@ -12,11 +12,25 @@
     </style>
 </head>
 <body>
+    {% comment %} here we got the some magic of the perms {% endcomment %}
     <h1 class="H">welcome {{name}} to the dashboard page</h1>
-    <input type="button" value="Add"> <br><br>
-    <input type="button" value="Delete"> <br><br>
-    <input type="button" value="Edit"> <br><br>
-    <input type="button" value="Views"> <br><br>
+    {% if perms.enroll.add_blog %}
+    {% comment %} <input type="button" value="Add"> <br><br> {% endcomment %}
+    <button type="submit">Add</button><br><br>
+    {% else %}
+      <h2>hey {{name}} you don't have permission for Add</h2>
+    {% endif %}
+    
+    {% if perms.enroll.delete_blog %}
+    {% comment %} <input type="button" value="Delete"> <br><br> {% endcomment %}
+    <button type="submit">Delete</button><br><br>
+    {% else %} <h2>hey {{name}} you don't have permission for Delete</h2>
+    {% endif %}
+    {% if perms.enroll.views_blog %}
+    {% comment %} <input type="button" value="Views"> <br><br> {% endcomment %}
+    <button type="submit">Views</button><br><br>
+    {% else %} <h2>hey {{name}} you don't have permission for Views</h2>
+    {% endif %}
   <a href="{% url 'logout' %}">LogOut</a><br><br>
   
 </body>
